@@ -1,0 +1,51 @@
+.data_tag {
+    color: #d43c3c;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.data_file {
+    height: 30px;
+    width: 80%;
+}
+
+.layout_check{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.layout_check span{
+    background-color: #d43c3c;
+    border-radius: 5px;
+    padding: 10px 30px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.layout_size{
+    margin-top: 30px;
+    font-size: 13px;
+    text-align: center;
+    color: #d43c3c;
+    font-weight: bold;
+}
+.layout_no{
+    margin-top: 10px;
+    height: 260px;
+    overflow-y: auto;
+    display: none;
+    border: 1px solid #e8e8e8;
+}
+.layout_file_tag{
+    margin-top: 10px;
+    font-weight: bold;
+    color: #222222;
+    display: none;
+}
+.layout_end_content{
+    margin-top: 20px;
+    font-size: 13px;
+    color: #222222;
+}

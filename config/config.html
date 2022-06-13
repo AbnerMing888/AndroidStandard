@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>基础配置</title>
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
+    <script src="../jquery-2.2.0.min.js"></script>
+    <script src="config.js"/>
+    <script>if (window.module) module = window.module;</script>
+    <style>
+        .config_top_input {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .config_file_input {
+            width: 60%;
+            height: 30px;
+        }
+
+        .select_file {
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+            color: #d43c3c;
+        }
+
+        .config_select_div {
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        .config_submit span {
+            cursor: pointer;
+            background-color: #d43c3c;
+            padding: 6px 40px;
+            border-radius: 5px;
+        }
+
+        .select_date {
+            width: 60%;
+        }
+
+        .dateEmpty{
+            color: #d43c3c;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div class="config_select_div">
+        <span class="select_file">选择要检查的Android项目路径</span>
+    </div>
+    <div class="config_top_input">
+        <!--选择路径-->
+        <input class="config_file_input" readonly="readonly"/>
+    </div>
+
+    <div style="margin-top: 30px;text-align: center;">
+        <span>选择要检查的日期</span>
+    </div>
+    <div style="text-align: center;margin-top: 30px;">
+        <input type="date" class="select_date"/><span class="dateEmpty">清空</span>
+    </div>
+</div>
+</body>
+</html>
