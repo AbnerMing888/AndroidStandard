@@ -1,7 +1,7 @@
 # AndroidStandard
-Android自动化，可视化，规范检查工具，告别人力排查！
-#### 欢迎关注我的微信公众号：微信搜一搜：Android干货铺，(或扫一扫下面的二维码)<br/>
-<img src="image/abner.jpg" width="120" height="120" alt="微信公众号"/><br/>
+
+Android可视化规范检查工具，包含基本的，类，方法，注释，资源等功能检查，大家可以根据项目需求，进行更改。
+
 #### 功能展示
 <img src="image/image.jpg" width="600"  alt="功能展示"/>
 
@@ -36,6 +36,9 @@ npm start
 #### 指导建议
 
 大家可以下载WebStorm开发工具，导入项目，打开package.json文件，点击start左侧绿色按钮进行运行，后续直接右上角运行就可以了，或快捷键shift+f10，非常方便。
+
+#### 欢迎关注我的微信公众号：微信搜一搜：Android干货铺，(或扫一扫下面的二维码)<br/>
+<img src="image/abner.jpg" width="160" height="160" alt="微信公众号"/><br/>
 
 
 
