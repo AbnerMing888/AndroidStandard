@@ -72,7 +72,6 @@ $(function () {
         }
         fs.readdir(layoutPath, function (err, files) {
             if (err) {
-                console.log(err);
                 $(".layout_size").text("抱歉，没有找到layout文件夹");
                 $(".layout_end_content").html("");
                 $(".layout_file_tag").css("display", "none");
@@ -103,6 +102,12 @@ $(function () {
                 $(".layout_no").empty();
 
                 var fileStart = selected;
+
+                //去除module
+                if (fileStart.indexOf("module") !== -1) {
+                    //包含
+                    fileStart = fileStart.replace("module_", "");
+                }
 
                 filesTemp.forEach(function (item, position) {
                     //不仅仅开头包含包名，如果是Activity或者Fragment

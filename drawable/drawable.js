@@ -67,6 +67,12 @@ $(function () {
         //读取文件信息
         var drawableStart = selected;
 
+        //去除module
+        if (drawableStart.indexOf("module") !== -1) {
+            //包含
+            drawableStart = drawableStart.replace("module_", "");
+        }
+
         //遍历res下存在的文件
         fs.readdir(layoutPath, function (err, files) {
             if (err) {

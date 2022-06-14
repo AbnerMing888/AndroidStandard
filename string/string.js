@@ -74,6 +74,12 @@ $(function () {
         //读取文件信息
         var stringStart = selected;
 
+        //去除module
+        if (stringStart.indexOf("module") !== -1) {
+            //包含
+            stringStart = stringStart.replace("module_", "");
+        }
+
         fs.readFile(layoutPath, 'utf-8', function (err, data) {
             if (err) {
                 $(".layout_size").text("抱歉，没有找到string文件夹");

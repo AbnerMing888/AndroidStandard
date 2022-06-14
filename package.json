@@ -8,5 +8,13 @@
     "package": "    electron-packager . AndroidStandard --win --out=./out --arch=x64 --app-version=1.0.0 --electron-version=15.0.0 --icon=android.ico"
   },
   "author": "AbenrMing",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@electron/remote": "^2.0.8",
+    "electron": "^15.0.0"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.8",
+    "electron": "^15.0.0"
+  }
 }
