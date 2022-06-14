@@ -151,10 +151,11 @@ $(function () {
                         if (lastContent.indexOf("fun") === -1) {
                             let endK = lastContent.split(" ")[1];
                             //判断变量是否符合要求
-                            if (endK.indexOf("(") === -1
-                                && endK.indexOf("R") === -1
+                            if (endK.indexOf("R") === -1
                                 && endK.indexOf("!") === -1
-                                && endK.indexOf(")") === -1) {
+                                && endK.indexOf(")") === -1
+                                && endK.indexOf("{") === -1
+                                && endK.indexOf("}") === -1) {
                                 if (endK.indexOf("<") === -1 && endK !== "") {
                                     if ((checkCase(endK)
                                         || endK.indexOf("_") !== -1)) {
@@ -206,10 +207,11 @@ $(function () {
                             let b = a[0].trim().split(" ");
                             let endC = b[b.length - 1];
 
-                            if (endC.indexOf("(") === -1
-                                && endC.indexOf("R") === -1
+                            if (endC.indexOf("R") === -1
                                 && endC.indexOf("!") === -1
-                                && endC.indexOf(")") === -1) {
+                                && endC.indexOf(")") === -1
+                                && endC.indexOf("{") === -1
+                                && endC.indexOf("}") === -1) {
                                 //判断变量是否符合要求
                                 if (endC.indexOf("<") === -1 && endC !== "") {
                                     if ((checkCase(endC)
@@ -233,10 +235,11 @@ $(function () {
                             let endItem = lastContent.trim().split(" ");
                             let endContent = endItem[endItem.length - 1];//最后的内容
 
-                            if (endContent.indexOf("(") === -1
-                                && endContent.indexOf("R") === -1
+                            if (endContent.indexOf("R") === -1
                                 && endContent.indexOf("!") === -1
-                                && endContent.indexOf(")") === -1) {
+                                && endContent.indexOf(")") === -1
+                                && endContent.indexOf("{") === -1
+                                && endContent.indexOf("}") === -1) {
                                 //判断变量是否符合要求
                                 if (endContent.indexOf("<") === -1 && endContent !== "") {
                                     if ((checkCase(endContent)

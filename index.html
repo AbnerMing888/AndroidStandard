@@ -52,7 +52,7 @@
 <script>
     //定义按钮数组
     const mItems = ["基础配置", "layout", "string", "图片命名",
-        "类注释", "方法注释", "方法命名", "变量检查", "try catch检测"];
+        "类注释", "方法注释", "方法命名", "变量检查", "try catch检测", "规范文档"];
     eachLeftNode();
 
     function eachLeftNode() {
@@ -66,12 +66,32 @@
             $(this).on('click', function () {
                 $(this).css("color", "#d43c3c");
                 $(this).siblings().css("color", "#222222");
-                selectItem(position);
+                if (position == 9) {
+                    //规范文档
+                    openDocument();
+                } else {
+                    selectItem(position);
+                }
+
             })
         });
 
         //默认选中第一个
         $(".left_item").eq(0).css("color", "#d43c3c");
+    }
+
+    function openDocument() {
+        const BrowserWindow = require('@electron/remote').BrowserWindow
+        newWindow = new BrowserWindow({
+            width: 1200,
+            height: 800,
+            resizable: false
+        })
+        newWindow.loadFile('document/document.html')
+        newWindow.setMenu(null);
+        newWindow.on('closed', () => {
+            newWindow = null
+        })
     }
 
     //左侧条目点击,进行切换不同的功能页面
