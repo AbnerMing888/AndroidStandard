@@ -79,18 +79,31 @@ $(function () {
         });
     }
 
+
+    var classSize = 0;
+    var classSizeOk = 0;
+    var caseNode = [];//不符合的方法
     function eachChildFile(endPath) {
         fs.readdir(endPath, function (err, files) {
             files.forEach(function (item, position) {
-                console.log(item);
                 fs.stat(endPath + "/" + item, function (err, stats) {
                     //判断是文件还是文件夹
                     if (stats.isDirectory()) {
                         //就继续循环
                         eachChildFile(endPath + "/" + item);
-
                     } else {
-                        //是文件，就进行判断文件名
+
+                        let time = stats.ctime;
+                        let select_time = localStorage.getItem("select_time");
+                        if (select_time != null) {
+                            if (time >= select_time) {
+                                //才能进入到解析
+                                readFile(item);
+                            }
+                        } else {
+                            readFile(item);
+                        }
+
                     }
                 });
             });
@@ -98,81 +111,74 @@ $(function () {
         });
     }
 
+    function readFile(item) {
+        //是文件，就进行判断文件名
+        let itemFile = item.split(".")[0];
+        if (!checkCase(itemFile) && itemFile.indexOf("_") === -1) {
+            //符合
+            classSizeOk++;
+        } else {
+            //不符合
+            classSize++;
+            //添加方法
+            caseNode.push(itemFile);
+        }
+    }
+
     //点击进行检查
     $(".layout_check span").click(function () {
-        eachNumber = 1;
+        classSize = 0;
+        classSizeOk = 0;
+        caseNode = [];//不符合的方法
         //获取选择的Moudle
         let selected = $('.data_file option:selected').val();
         let layoutPath = selectPath + "/" + selected + "/src/main/java";
-        eachDir(layoutPath);
-        /*
         fs.readdir(layoutPath, function (err, files) {
             if (err) {
-                console.log(err);
-                $(".layout_size").text("抱歉，没有找到layout文件夹");
+                $(".layout_size").text("抱歉，没有找到对应文件夹");
                 $(".layout_end_content").html("");
                 $(".layout_file_tag").css("display", "none");
                 $(".layout_no").css("display", "none");
-                return
+                return;
             }
-            let fileSize = files.length;//文件数量
+            eachDir(layoutPath);
 
-            var fileOk = 0;
-            $(".layout_no").empty();
+            setTimeout(function () {
+                caseNode.forEach(function (item, position) {
+                    addNoNode(item);
+                });
 
-            var fileStart = selected;
-            if (selected.startsWith("module_")) {
-                fileStart = selected.replace("module_", "");
-            }
-            files.forEach(function (item, position) {
-                //不仅仅开头包含包名，如果是Activity或者Fragment
-                if (item.indexOf("activity") !== -1
-                    || item.indexOf("fragment") !== -1
-                    || item.indexOf("dialog") !== -1
-                    || item.indexOf("adapter") !== -1) {
-
-                    if (item.startsWith(fileStart + "_activity")
-                        || item.startsWith(fileStart + "_fragment")
-                        || item.startsWith(fileStart + "_dialog")
-                        || item.startsWith(fileStart + "_adapter")) {
-                        fileOk++;
-                    } else {
-                        addNoNode(item);
-                    }
+                if (classSizeOk !== (classSizeOk + classSize)) {
+                    //有不规范
+                    $(".layout_file_tag").css("display", "block");
+                    $(".layout_size").text("共检查" + (classSizeOk + classSize) + "个文件，命名规范" + classSizeOk + "个,不规范" + classSize + "个");
+                    $(".layout_no").css("display", "block");
+                    let content = "<div style='margin-bottom: 5px;'><strong>请您按照类命名规则对以上不符合文件进行整改，命名规则如下：</strong></div>" +
+                        "类的命名规则： Activity、Fragment、Dialog、Adapter等给业务逻辑相关的类不用带组件名称，在common公共组件下的类为了区分哪个业务组件的类可以带业务模块名称" +
+                        "<div style='font-weight: bold;margin-top: 5px;margin-bottom: 5px;'>例如： </div>" +
+                        "<div>①、community组件下 SearchActivity SearchFragment SearchDialog SearchAdapter</div>" +
+                        "②、common组件下为了区分业务，前面可加组件名，其他情况不用加组件名  MineConstant  CommunityConstant "
+                    $(".layout_end_content").html(content);
                 } else {
-                    if (item.startsWith(fileStart)) {
-                        fileOk++;
-                    } else {
-                        addNoNode(item);
-                    }
+                    //全部规范
+                    $(".layout_file_tag").css("display", "none");
+                    $(".layout_no").css("display", "none");
+                    $(".layout_size").text("共检查" + classSizeOk + "个文件，全部符合规范，真棒！")
+                    $(".layout_end_content").html("");
                 }
 
-            });
-
-
-            if (fileOk !== fileSize) {
-                //有不规范
-                $(".layout_file_tag").css("display", "block");
-                $(".layout_size").text("共检查" + fileSize + "个文件，命名规范" + fileOk + "个,不规范" + (fileSize - fileOk) + "个");
-                $(".layout_no").css("display", "block");
-                let content = "<div style='margin-bottom: 5px;'><strong>请您按照类命名规则对以上不符合文件进行整改，命名规则如下：</strong></div>" +
-                    "类的命名规则： Activity、Fragment、Dialog、Adapter等给业务逻辑相关的类不用带组件名称，在common公共组件下的类为了区分哪个业务组件的类可以带业务模块名称" +
-                    "<div style='font-weight: bold;margin-top: 5px;margin-bottom: 5px;'>例如： </div>" +
-                    "<div>①、community组件下 SearchActivity SearchFragment SearchDialog SearchAdapter</div>" +
-                    "②、common组件下为了区分业务，前面可加组件名，其他情况不用加组件名  MineConstant  CommunityConstant "
-                $(".layout_end_content").html(content);
-            } else {
-                //全部规范
-                $(".layout_file_tag").css("display", "none");
-                $(".layout_no").css("display", "none");
-                $(".layout_size").text("共检查" + fileSize + "个文件，全部符合规范，真棒！")
-                $(".layout_end_content").html("");
-            }
-
-
+            }, 500);
         });
-*/
     });
+
+    function checkCase(ch) {
+        if (ch === ch.toUpperCase()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     function addNoNode(item) {
         let nodeNo = "<div style='padding: 5px;'>" +

@@ -51,7 +51,7 @@
 </body>
 <script>
     //定义按钮数组
-    const mItems = ["基础配置", "layout", "string", "图片命名",
+    const mItems = ["基础配置", "layout", "string", "图片命名","类名检查",
         "类注释", "方法注释", "方法命名", "变量检查", "try catch检测", "规范文档"];
     eachLeftNode();
 
@@ -107,19 +107,22 @@
             case 3://drawable检查
                 srcPath = "drawable/drawable.html";
                 break;
-            case 4://类注释检查
+            case 4://类检查
+                srcPath = "class/class.html";
+                break;
+            case 5://类注释检查
                 srcPath = "notes/notes.html";
                 break;
-            case 5://方法注释
+            case 6://方法注释
                 srcPath = "method/method.html";
                 break;
-            case 6://方法命名
+            case 7://方法命名
                 srcPath = "method_notes/method_notes.html";
                 break;
-            case 7://变量检查
+            case 8://变量检查
                 srcPath = "variable/variable.html";
                 break;
-            case 8://try catch
+            case 9://try catch
                 srcPath = "try/try.html";
                 break;
         }
