@@ -128,27 +128,30 @@ $(function () {
                 //kotlin
                 let kotlin = data.split("fun");
                 kotlin.forEach(function (item, position) {
-                    console.log(item);
+
                     if (position !== kotlin.length - 1) {
                         let endDesc = item.substring(item.length - 50, item.length);
-                        //判断是否包含注释
-                        if (endDesc.indexOf("//") !== -1 || endDesc.indexOf("*/") !== -1) {
-                            methodSizeOk++;
-                            eachOk++;
-                        } else {
-                            //不符合的方法
-                            methodSize++;
-                            eachNo++;
+                        if (endDesc.indexOf("override") === -1) {
+                            //判断是否包含注释
+                            if (endDesc.indexOf("//") !== -1 || endDesc.indexOf("*/") !== -1) {
+                                methodSizeOk++;
+                                eachOk++;
+                            } else {
+                                //不符合的方法
+                                methodSize++;
+                                eachNo++;
 
-                            let tr = kotlin[position - 1].trim();
-                            let positionCase = tr.indexOf("(");
-                            let endCase = tr.substring(0, positionCase);
+                                let tr = kotlin[position - 1];
+                                if (tr != null) {
+                                    let positionCase = tr.indexOf("(");
+                                    let endCase = tr.substring(0, positionCase);
+                                    if (endCase.length < 30) {
+                                        caseNode.push(endCase);
+                                    }
+                                }
 
-                            if (endCase.length < 30) {
-                                caseNode.push(endCase);
                             }
                         }
-
                     }
 
 
@@ -167,23 +170,27 @@ $(function () {
                         if (item.indexOf("}") !== -1) {
                             let lastDesc = item.lastIndexOf("}");
                             let endDesc = item.substring(lastDesc, item.length);
-                            if (endDesc.indexOf("//") !== -1 || endDesc.indexOf("/*") !== -1) {
-                                //包含
-                                methodSizeOk++;
-                                eachOk++;
-                            } else {
-                                if (item.indexOf("while") === -1
-                                    && item.indexOf("if") === -1
-                                    && item.indexOf("for") === -1) {
-                                    //不符合的方法
-                                    methodSize++;
-                                    eachNo++;
-                                    //添加方法
-                                    let lastK = item.lastIndexOf("(");
-                                    let lasetContent = item.substring(0, lastK);
-                                    let endContent = lasetContent.split(" ");//取最后一个
-                                    caseNode.push(endContent[endContent.length - 1]);
+                            if (endDesc.indexOf("Override") === -1) {
+                                if (endDesc.indexOf("//") !== -1 || endDesc.indexOf("/*") !== -1) {
+                                    //包含
+                                    methodSizeOk++;
+                                    eachOk++;
+                                } else {
+                                    if (item.indexOf("while") === -1
+                                        && item.indexOf("if") === -1
+                                        && item.indexOf("for") === -1) {
+                                        //不符合的方法
+                                        methodSize++;
+                                        eachNo++;
+                                        //添加方法
+                                        let lastK = item.lastIndexOf("(");
+                                        let lasetContent = item.substring(0, lastK);
+                                        let endContent = lasetContent.split(" ");//取最后一个
+                                        caseNode.push(endContent[endContent.length - 1]);
+                                    }
+
                                 }
+
 
                             }
                         } else {
@@ -198,22 +205,26 @@ $(function () {
                                 endLast = lastPublic;//获取最后一个
                             }
 
-                            let endString = item.substring(endLast - 50, endLast)
-                            if (endString.indexOf("//") !== -1 || endString.indexOf("/*") !== -1) {
-                                //包含
-                                methodSizeOk++;
-                                eachOk++;
-                            } else {
-                                console.log(item);
-                                //不符合的方法
-                                methodSize++;
-                                eachNo++;
-                                //添加方法
-                                let lastK = item.lastIndexOf("(");
-                                let lasetContent = item.substring(0, lastK);
-                                let endContent = lasetContent.split(" ");//取最后一个
-                                caseNode.push(endContent[endContent.length - 1]);
+                            let endString = item.substring(endLast - 50, endLast);
+
+                            if (endString.indexOf("Override") === -1) {
+                                if (endString.indexOf("//") !== -1 || endString.indexOf("/*") !== -1) {
+                                    //包含
+                                    methodSizeOk++;
+                                    eachOk++;
+                                } else {
+                                    //不符合的方法
+                                    methodSize++;
+                                    eachNo++;
+                                    //添加方法
+                                    let lastK = item.lastIndexOf("(");
+                                    let lasetContent = item.substring(0, lastK);
+                                    let endContent = lasetContent.split(" ");//取最后一个
+                                    caseNode.push(endContent[endContent.length - 1]);
+                                }
+
                             }
+
                         }
 
                     }
