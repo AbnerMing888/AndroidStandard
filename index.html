@@ -66,7 +66,7 @@
             $(this).on('click', function () {
                 $(this).css("color", "#d43c3c");
                 $(this).siblings().css("color", "#222222");
-                if (position == 9) {
+                if (position == 10) {
                     //规范文档
                     openDocument();
                 } else {
@@ -124,9 +124,6 @@
                 break;
             case 9://try catch
                 srcPath = "try/try.html";
-                break;
-            case 10://规范文档
-                srcPath = "document/document.html";
                 break;
         }
         $(".right_iframe").attr("src", srcPath);
