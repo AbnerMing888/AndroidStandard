@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>git提交</title>
+    <link rel="stylesheet" type="text/css" href="select2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="git.css"/>
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
+    <script src="../jquery-2.2.0.min.js"></script>
+    <script src="select2.min.js"></script>
+    <script src="git.js"/>
+    <script>if (window.module) module = window.module;</script>
+</head>
+<body>
+<div>
+    <div class="git_tag">选择git提交用户</div>
+    <div>
+        <select class="form-control" id="git_select">
+            <option value="">全部用户</option>
+        </select>
+    </div>
+    <div class="getNowCommit">点击检查</div>
+</div>
+</body>
+<script>
+    var selectorx = $('#git_select').select2();
+</script>
+</html>

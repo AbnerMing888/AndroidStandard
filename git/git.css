@@ -1,0 +1,10 @@
+#git_select{
+    width: 50%;
+    text-align: center;
+}
+.git_tag{
+    color: #d43c3c;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
