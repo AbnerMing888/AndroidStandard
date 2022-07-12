@@ -12,5 +12,8 @@
   "devDependencies": {
     "@electron/remote": "^2.0.8",
     "electron": "^15.0.0"
+  },
+  "dependencies": {
+    "node-cmd": "^5.0.0"
   }
 }

@@ -51,8 +51,8 @@
 </body>
 <script>
     //定义按钮数组
-    const mItems = ["基础配置", "layout", "string", "图片命名","类名检查",
-        "类注释", "方法注释", "方法命名", "变量检查", "try catch检测", "规范文档"];
+    const mItems = ["基础配置", "layout", "string", "图片命名", "类名检查",
+        "类注释", "方法注释", "方法命名", "变量检查", "try catch检测", "git检查", "规范文档"];
     eachLeftNode();
 
     function eachLeftNode() {
@@ -66,7 +66,7 @@
             $(this).on('click', function () {
                 $(this).css("color", "#d43c3c");
                 $(this).siblings().css("color", "#222222");
-                if (position == 10) {
+                if (position == 11) {
                     //规范文档
                     openDocument();
                 } else {
@@ -124,6 +124,9 @@
                 break;
             case 9://try catch
                 srcPath = "try/try.html";
+                break;
+            case 10://git检查
+                srcPath = "git/git.html";
                 break;
         }
         $(".right_iframe").attr("src", srcPath);
