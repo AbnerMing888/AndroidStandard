@@ -15,17 +15,34 @@
     <script>if (window.module) module = window.module;</script>
 </head>
 <body>
-<div>
+<div style="text-align: center;">
     <div class="git_tag">选择git提交用户</div>
     <div>
         <select class="form-control" id="git_select">
             <option value="">全部用户</option>
         </select>
     </div>
-    <div class="getNowCommit">点击检查</div>
+    <div class="git_tag" style="margin-top: 10px;">输入最近提交次数</div>
+    <div>
+        <input class="git_number" value="1" type="number"/>
+    </div>
+    <div class="getNowCommit">
+        <span>点击检查</span>
+    </div>
+    <div class="git_list_rect" style="margin-top: 20px;height:160px;overflow-y: auto;border: 1px solid #e8e8e8;">
+        <div class="git_list">
+
+        </div>
+    </div>
+    <div class="git_result">
+
+    </div>
+    <div class="git_class_result">
+
+    </div>
 </div>
 </body>
 <script>
-    var selectorx = $('#git_select').select2();
+    $('#git_select').select2();
 </script>
 </html>
