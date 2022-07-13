@@ -151,7 +151,8 @@ $(function () {
 
             gitJavaKotlin(filePath, endFile, java);
             classCheckName($(".gitJavaClass"), endFile);
-        } else if (endFile.indexOf("xml") !== -1) {
+        } else if (f.indexOf("layout") !== -1 && endFile.indexOf("xml") !== -1) {
+
             appendTop(endFile);
             let endF = f.substring(1, f.length);
             let position = endF.indexOf("/");
