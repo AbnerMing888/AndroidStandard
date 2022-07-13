@@ -82,7 +82,7 @@
 
     function openDocument() {
         const BrowserWindow = require('@electron/remote').BrowserWindow
-        newWindow = new BrowserWindow({
+        let newWindow = new BrowserWindow({
             width: 1200,
             height: 800,
             resizable: false

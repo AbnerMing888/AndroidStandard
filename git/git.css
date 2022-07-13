@@ -1,10 +1,72 @@
-#git_select{
+#git_select {
     width: 50%;
     text-align: center;
 }
-.git_tag{
+
+.git_number {
+    width: 50%;
+    height: 25px;
+}
+
+.git_tag {
     color: #d43c3c;
     font-weight: bold;
     margin-bottom: 10px;
     font-size: 13px;
+}
+
+.getNowCommit {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.getNowCommit span {
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #d43c3c;
+    cursor: pointer;
+    padding: 10px 50px;
+}
+
+.git_list {
+    text-align: left;
+    font-size: 12px;
+}
+
+.git_list_item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.git_list_item:hover {
+    color: #d43c3c;
+}
+
+.git_result {
+    margin-top: 10px;
+}
+
+.git_list_rect {
+    display: none;
+}
+
+.gitSpan {
+    border: 1px solid #d43c3c;
+    border-radius: 2px;
+    color: #d43c3c;
+    margin-right: 6px;
+    cursor: pointer;
+    padding: 2px 3px;
+}
+
+.gitJavaClass {
+    color: #ffffff;
+    background-color: #d43c3c;
+    border-radius: 2px;
+}
+
+.git_class_result {
+    display: none;
+    margin-top: 20px;
 }
