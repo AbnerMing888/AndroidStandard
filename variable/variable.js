@@ -159,11 +159,18 @@ $(function () {
                                 if (endK.indexOf("<") === -1 && endK !== "") {
                                     if ((checkCase(endK)
                                         || endK.indexOf("_") !== -1)) {
-                                        //不符合
-                                        methodSize++;
-                                        eachNo++;
-                                        //添加方法
-                                        caseNode.push(endK);
+                                        const p = /^[A-Z_]*$/g;
+                                        if (p.test(endK)){
+                                            //符合
+                                            methodSizeOk++;
+                                            eachOk++;
+                                        }else{
+                                            //不符合
+                                            methodSize++;
+                                            eachNo++;
+                                            //添加方法
+                                            caseNode.push(endK);
+                                        }
                                     } else {
                                         //符合
                                         methodSizeOk++;
@@ -216,11 +223,18 @@ $(function () {
                                 if (endC.indexOf("<") === -1 && endC !== "") {
                                     if ((checkCase(endC)
                                         || endC.indexOf("_") !== -1)) {
-                                        //不符合
-                                        methodSize++;
-                                        eachNo++;
-                                        //添加方法
-                                        caseNode.push(endC);
+                                        const p = /^[A-Z_]*$/g;
+                                        if (p.test(endC)){
+                                            //符合
+                                            methodSizeOk++;
+                                            eachOk++;
+                                        }else{
+                                            //不符合
+                                            methodSize++;
+                                            eachNo++;
+                                            //添加方法
+                                            caseNode.push(endC);
+                                        }
                                     } else {
                                         //符合
                                         methodSizeOk++;
@@ -244,11 +258,18 @@ $(function () {
                                 if (endContent.indexOf("<") === -1 && endContent !== "") {
                                     if ((checkCase(endContent)
                                         || endContent.indexOf("_") !== -1)) {
-                                        //不符合
-                                        methodSize++;
-                                        eachNo++;
-                                        //添加方法
-                                        caseNode.push(endContent);
+                                        const p = /^[A-Z_]*$/g;
+                                        if (p.test(endContent)){
+                                            //符合
+                                            methodSizeOk++;
+                                            eachOk++;
+                                        }else{
+                                            //不符合
+                                            methodSize++;
+                                            eachNo++;
+                                            //添加方法
+                                            caseNode.push(endContent);
+                                        }
                                     } else {
                                         //符合
                                         methodSizeOk++;
