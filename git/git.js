@@ -19,7 +19,7 @@ $(function () {
         if (number === "" || number.indexOf(".") !== -1) {
             number = 1;
         }
-        let option = $(".git_select option:selected").val();
+        let option = $("#git_select option:selected").val();
 
         var cmd = "git log -p -" + number;
         if (option.indexOf("all") === -1) {
@@ -39,17 +39,14 @@ $(function () {
             if (type === 0) {
                 let userArray = userString.split("'");
                 const resultArray = Array.from(new Set(userArray))
-                $(".git_select").empty();
-                $(".git_select").append("<option value='all' selected>全部用户</option>");
+                $("#git_select").empty();
+                $("#git_select").append("<option value='all'>全部用户</option>");
                 for (var i = 0; i < resultArray.length; i++) {
                     let user = resultArray[i];
                     if (user !== "" && user !== "\n") {
-                        $(".git_select").append("<option value='" + user + "'>" + user + "</option>")
+                        $("#git_select").append("<option value='" + user + "'>" + user + "</option>")
                     }
                 }
-
-                $('.git_select').chosen();
-                $(".chosen-results").css("height", "300px")
             } else {
                 //执行的命令
                 // console.log(userString);
