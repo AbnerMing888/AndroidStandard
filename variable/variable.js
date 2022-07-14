@@ -160,11 +160,11 @@ $(function () {
                                     if ((checkCase(endK)
                                         || endK.indexOf("_") !== -1)) {
                                         const p = /^[A-Z_]*$/g;
-                                        if (p.test(endK)){
+                                        if (p.test(endK)) {
                                             //符合
                                             methodSizeOk++;
                                             eachOk++;
-                                        }else{
+                                        } else {
                                             //不符合
                                             methodSize++;
                                             eachNo++;
@@ -224,11 +224,11 @@ $(function () {
                                     if ((checkCase(endC)
                                         || endC.indexOf("_") !== -1)) {
                                         const p = /^[A-Z_]*$/g;
-                                        if (p.test(endC)){
+                                        if (p.test(endC)) {
                                             //符合
                                             methodSizeOk++;
                                             eachOk++;
-                                        }else{
+                                        } else {
                                             //不符合
                                             methodSize++;
                                             eachNo++;
@@ -259,11 +259,11 @@ $(function () {
                                     if ((checkCase(endContent)
                                         || endContent.indexOf("_") !== -1)) {
                                         const p = /^[A-Z_]*$/g;
-                                        if (p.test(endContent)){
+                                        if (p.test(endContent)) {
                                             //符合
                                             methodSizeOk++;
                                             eachOk++;
-                                        }else{
+                                        } else {
                                             //不符合
                                             methodSize++;
                                             eachNo++;
