@@ -28,7 +28,6 @@ $(function () {
         cmdExec(cmd, 1);
     });
 
-
     function cmdExec(cmdStr, type) {
         exec(cmdStr, {
             cwd: selectPath,
@@ -148,7 +147,6 @@ $(function () {
             if (endFile.indexOf("kt") !== -1) {
                 java = 1;
             }
-
             gitJavaKotlin(filePath, endFile, java);
             classCheckName($(".gitJavaClass"), endFile);
         } else if (f.indexOf("layout") !== -1 && endFile.indexOf("xml") !== -1) {
@@ -197,6 +195,7 @@ $(function () {
 
     function gitJavaKotlin(filePath, endFile, java) {
         $(".gitJavaClass").click(function () {
+            //类名
             classCheckName($(this), endFile);
         });
         $(".gitJavaClassNotes").click(function () {
@@ -223,12 +222,13 @@ $(function () {
         });
         $(".gitJavaMethodNotes").click(function () {
             setTopStyle($(this));
+            //方法注释
             readMethodFile(filePath, java);
         });
         $(".gitJavaMethod").click(function () {
             setTopStyle($(this));
             //方法命名
-            readMethodName(filePath, java);
+            readMethodName(filePath, java, endFile);
         });
         $(".gitJavaVarqiable").click(function () {
             setTopStyle($(this));
@@ -290,29 +290,35 @@ $(function () {
                 //kotlin
                 let kotlin = data.split("fun");
                 kotlin.forEach(function (item, position) {
+                    let endItem = item.trim();
+                    let override = endItem.substring(endItem.length - 20, endItem.length);
+                    //判断是否包含
                     if (position !== kotlin.length - 1) {
-                        let endDesc = item.substring(item.length - 50, item.length);
-                        if (endDesc.indexOf("override") === -1) {
-                            //判断是否包含注释
-                            if (endDesc.indexOf("//") !== -1 || endDesc.indexOf("*/") !== -1) {
+                        if (override.indexOf("override") === -1) {
+                            let endM = kotlin[position + 1];
+                            //有注释的也要另行添加
+                            let kE = endItem.lastIndexOf("}");
+                            let endK = endItem.substring(kE, endItem.length);
+                            if (endK.indexOf("//") !== -1 || endK.indexOf("*/") !== -1) {
+                                //带有注释
                                 eachOk++;
                             } else {
+                                //没有注释
                                 //不符合的方法
-                                eachNo++;
-                                let tr = kotlin[position - 1];
+                                let tr = endM;
                                 if (tr != null) {
                                     let positionCase = tr.indexOf("(");
                                     let endCase = tr.substring(0, positionCase);
-                                    if (endCase.length < 30) {
+                                    //去掉构造函数
+                                    if (endCase.length < 30 && file.indexOf(endCase) === -1) {
+                                        eachNo++;
                                         caseNode.push(endCase);
                                     }
                                 }
-
                             }
                         }
+
                     }
-
-
                 });
             } else {
                 //java
@@ -335,12 +341,19 @@ $(function () {
                                     if (item.indexOf("while") === -1
                                         && item.indexOf("if") === -1
                                         && item.indexOf("for") === -1) {
-                                        //不符合的方法
-                                        eachNo++;
+
+                                        //添加方法
                                         let lastK = item.lastIndexOf("(");
                                         let lasetContent = item.substring(0, lastK);
                                         let endContent = lasetContent.split(" ");//取最后一个
-                                        caseNode.push(endContent[endContent.length - 1]);
+
+                                        let javaMethod = endContent[endContent.length - 1];
+                                        if (file.indexOf(javaMethod) === -1) {
+                                            //不符合的方法
+                                            eachNo++;
+                                            caseNode.push(javaMethod);
+                                        }
+
                                     }
 
                                 }
@@ -348,6 +361,7 @@ $(function () {
 
                             }
                         } else {
+
                             let lastPrivate = item.lastIndexOf("private");
                             let lastPublic = item.lastIndexOf("public");
                             let lastProtected = item.lastIndexOf("protected");
@@ -360,21 +374,21 @@ $(function () {
                             }
 
                             let endString = item.substring(endLast - 50, endLast);
-
-                            console.log(endString);
-
                             if (endString.indexOf("Override") === -1) {
-                                if (endString.indexOf("//") !== -1 || endString.indexOf("/*") !== -1) {
+                                if (endString.indexOf("//") !== -1 || endString.indexOf("*/") !== -1) {
                                     //包含
                                     eachOk++;
                                 } else {
-                                    //不符合的方法
-                                    eachNo++;
                                     //添加方法
                                     let lastK = item.lastIndexOf("(");
                                     let lasetContent = item.substring(0, lastK);
                                     let endContent = lasetContent.split(" ");//取最后一个
-                                    caseNode.push(endContent[endContent.length - 1]);
+                                    let javaMethod = endContent[endContent.length - 1];
+                                    if (file.indexOf(javaMethod) === -1) {
+                                        //不符合的方法
+                                        eachNo++;
+                                        caseNode.push(javaMethod);
+                                    }
                                 }
 
                             }
@@ -404,7 +418,7 @@ $(function () {
     }
 
     //方法命名
-    function readMethodName(path, java) {
+    function readMethodName(path, java, endFile) {
         fs.readFile(path, 'utf-8', function (err, data) {
             if (err) {
                 return;
@@ -423,12 +437,10 @@ $(function () {
                         //判断开头是大写还是小写
                         let tr = item.trim();
                         let indexCase = tr.substring(0, 1);
-
                         let positionCase = tr.indexOf("(");
                         let endCase = tr.substring(0, positionCase);
-
-
-                        if (endCase.indexOf("<") === -1 && endCase !== "") {
+                        if (endCase.indexOf("<") === -1
+                            && endCase !== "" && endFile.indexOf(endCase) === -1) {
                             if ((checkCase(indexCase)
                                 || endCase.indexOf("_") !== -1)) {
                                 //不符合
@@ -459,10 +471,11 @@ $(function () {
                         let endContent = lasetContent.split(" ");//取最后一个
                         let endMethod = endContent[endContent.length - 1];
 
-
-                        if (endMethod.indexOf("<") === -1 && endMethod !== "") {
-                            if ((checkCase(endMethod)
-                                || endMethod.indexOf("_") !== -1)) {
+                        if (endMethod.indexOf("<") === -1
+                            && endMethod !== "" &&
+                            endFile.indexOf(endMethod) === -1
+                            && endMethod.indexOf("(") === -1) {
+                            if (checkCase(endMethod.substring(0, 1)) || endMethod.indexOf("_") !== -1) {
                                 //不符合
                                 eachNo++;
                                 //添加方法
@@ -532,10 +545,16 @@ $(function () {
                                 if (endK.indexOf("<") === -1 && endK !== "") {
                                     if ((checkCase(endK)
                                         || endK.indexOf("_") !== -1)) {
-                                        //不符合
-                                        eachNo++;
-                                        //添加方法
-                                        caseNode.push(endK);
+                                        const p = /^[A-Z_]*$/g;
+                                        if (p.test(endK)) {
+                                            //符合
+                                            eachOk++;
+                                        } else {
+                                            //不符合
+                                            eachNo++;
+                                            //添加方法
+                                            caseNode.push(endK);
+                                        }
                                     } else {
                                         //符合
                                         eachOk++;
@@ -587,17 +606,22 @@ $(function () {
                                 if (endC.indexOf("<") === -1 && endC !== "") {
                                     if ((checkCase(endC)
                                         || endC.indexOf("_") !== -1)) {
-                                        //不符合
-                                        eachNo++;
-                                        //添加方法
-                                        caseNode.push(endC);
+                                        const p = /^[A-Z_]*$/g;
+                                        if (p.test(endC)) {
+                                            //符合
+                                            eachOk++;
+                                        } else {
+                                            //不符合
+                                            eachNo++;
+                                            //添加方法
+                                            caseNode.push(endC);
+                                        }
                                     } else {
                                         //符合
                                         eachOk++;
                                     }
                                 }
                             }
-
 
                         } else {
                             //普通的成员变量
@@ -613,10 +637,16 @@ $(function () {
                                 if (endContent.indexOf("<") === -1 && endContent !== "") {
                                     if ((checkCase(endContent)
                                         || endContent.indexOf("_") !== -1)) {
-                                        //不符合
-                                        eachNo++;
-                                        //添加方法
-                                        caseNode.push(endContent);
+                                        const p = /^[A-Z_]*$/g;
+                                        if (p.test(endContent)) {
+                                            //符合
+                                            eachOk++;
+                                        } else {
+                                            //不符合
+                                            eachNo++;
+                                            //添加方法
+                                            caseNode.push(endContent);
+                                        }
                                     } else {
                                         //符合
                                         eachOk++;

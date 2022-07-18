@@ -134,12 +134,10 @@ $(function () {
                         //判断开头是大写还是小写
                         let tr = item.trim();
                         let indexCase = tr.substring(0, 1);
-
                         let positionCase = tr.indexOf("(");
                         let endCase = tr.substring(0, positionCase);
-
-
-                        if (endCase.indexOf("<") === -1 && endCase !== "") {
+                        if (endCase.indexOf("<") === -1
+                            && endCase !== "" && file.indexOf(endCase) === -1) {
                             if ((checkCase(indexCase)
                                 || endCase.indexOf("_") !== -1)) {
                                 //不符合
@@ -172,10 +170,11 @@ $(function () {
                         let endContent = lasetContent.split(" ");//取最后一个
                         let endMethod = endContent[endContent.length - 1];
 
-
-                        if (endMethod.indexOf("<") === -1 && endMethod !== "") {
-                            if ((checkCase(endMethod)
-                                || endMethod.indexOf("_") !== -1)) {
+                        if (endMethod.indexOf("<") === -1
+                            && endMethod !== "" &&
+                            file.indexOf(endMethod) === -1
+                            && endMethod.indexOf("(") === -1) {
+                            if (checkCase(endMethod.substring(0, 1)) || endMethod.indexOf("_") !== -1) {
                                 //不符合
                                 methodSize++;
                                 eachNo++;
@@ -203,7 +202,7 @@ $(function () {
                 addNoNode(file, eachOk, eachNo, caseNode);
             }
 
-            let error = "共检索出" + fileSize + "个文件,一共" + (methodSize + methodSizeOk)
+            let error = "共检索出" + (methodSize + methodSizeOk)
                 + "个方法，规范的方法一共" + methodSizeOk + "个，不规范的一共" + methodSize + "个";
 
             $(".layout_size").text(error);

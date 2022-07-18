@@ -128,40 +128,43 @@ $(function () {
                 //kotlin
                 let kotlin = data.split("fun");
                 kotlin.forEach(function (item, position) {
-
+                    let endItem = item.trim();
+                    let override = endItem.substring(endItem.length - 20, endItem.length);
+                    //判断是否包含
                     if (position !== kotlin.length - 1) {
-                        let endDesc = item.substring(item.length - 50, item.length);
-                        if (endDesc.indexOf("override") === -1) {
-                            //判断是否包含注释
-                            if (endDesc.indexOf("//") !== -1 || endDesc.indexOf("*/") !== -1) {
+                        if (override.indexOf("override") === -1) {
+                            let endM = kotlin[position + 1];
+                            //有注释的也要另行添加
+                            let kE = endItem.lastIndexOf("}");
+                            let endK = endItem.substring(kE, endItem.length);
+                            if (endK.indexOf("//") !== -1 || endK.indexOf("*/") !== -1) {
+                                //带有注释
                                 methodSizeOk++;
                                 eachOk++;
                             } else {
+                                //没有注释
                                 //不符合的方法
-                                methodSize++;
-                                eachNo++;
-
-                                let tr = kotlin[position - 1];
+                                let tr = endM;
                                 if (tr != null) {
                                     let positionCase = tr.indexOf("(");
                                     let endCase = tr.substring(0, positionCase);
-                                    if (endCase.length < 30) {
+                                    //去掉构造函数
+                                    if (endCase.length < 30 && file.indexOf(endCase) === -1) {
+                                        methodSize++;
+                                        eachNo++;
                                         caseNode.push(endCase);
                                     }
                                 }
-
                             }
                         }
+
                     }
-
-
                 });
             } else {
                 //java
                 //遍历方法
                 let java = data.split(") {");
                 java.forEach(function (item, position) {
-
                     if (item.indexOf("public") !== -1
                         || item.indexOf("protected") !== -1
                         || item.indexOf("private") !== -1) {
@@ -179,14 +182,20 @@ $(function () {
                                     if (item.indexOf("while") === -1
                                         && item.indexOf("if") === -1
                                         && item.indexOf("for") === -1) {
-                                        //不符合的方法
-                                        methodSize++;
-                                        eachNo++;
+
                                         //添加方法
                                         let lastK = item.lastIndexOf("(");
                                         let lasetContent = item.substring(0, lastK);
                                         let endContent = lasetContent.split(" ");//取最后一个
-                                        caseNode.push(endContent[endContent.length - 1]);
+
+                                        let javaMethod = endContent[endContent.length - 1];
+                                        if (file.indexOf(javaMethod) === -1) {
+                                            //不符合的方法
+                                            methodSize++;
+                                            eachNo++;
+                                            caseNode.push(javaMethod);
+                                        }
+
                                     }
 
                                 }
@@ -194,6 +203,7 @@ $(function () {
 
                             }
                         } else {
+
                             let lastPrivate = item.lastIndexOf("private");
                             let lastPublic = item.lastIndexOf("public");
                             let lastProtected = item.lastIndexOf("protected");
@@ -206,21 +216,23 @@ $(function () {
                             }
 
                             let endString = item.substring(endLast - 50, endLast);
-
                             if (endString.indexOf("Override") === -1) {
-                                if (endString.indexOf("//") !== -1 || endString.indexOf("/*") !== -1) {
+                                if (endString.indexOf("//") !== -1 || endString.indexOf("*/") !== -1) {
                                     //包含
                                     methodSizeOk++;
                                     eachOk++;
                                 } else {
-                                    //不符合的方法
-                                    methodSize++;
-                                    eachNo++;
                                     //添加方法
                                     let lastK = item.lastIndexOf("(");
                                     let lasetContent = item.substring(0, lastK);
                                     let endContent = lasetContent.split(" ");//取最后一个
-                                    caseNode.push(endContent[endContent.length - 1]);
+                                    let javaMethod = endContent[endContent.length - 1];
+                                    if (file.indexOf(javaMethod) === -1) {
+                                        //不符合的方法
+                                        methodSize++;
+                                        eachNo++;
+                                        caseNode.push(javaMethod);
+                                    }
                                 }
 
                             }
