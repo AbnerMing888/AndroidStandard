@@ -310,7 +310,7 @@ $(function () {
                                     let positionCase = tr.indexOf("(");
                                     let endCase = tr.substring(0, positionCase);
                                     //去掉构造函数
-                                    if (endCase.length < 30 && file.indexOf(endCase) === -1) {
+                                    if (endCase.length < 30 && path.indexOf(endCase) === -1) {
                                         eachNo++;
                                         caseNode.push(endCase);
                                     }
@@ -719,7 +719,6 @@ $(function () {
             } else {
                 $(".git_class_result").append("<div>未添加try catch的方法共有" + eachNo + "个</div>");
             }
-
         });
     }
 });

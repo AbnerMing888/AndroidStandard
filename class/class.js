@@ -130,6 +130,7 @@ $(function () {
         classSize = 0;
         classSizeOk = 0;
         caseNode = [];//不符合的方法
+        $(".layout_no").empty();
         //获取选择的Moudle
         let selected = $('.data_file option:selected').val();
         let layoutPath = selectPath + "/" + selected + "/src/main/java";
