@@ -9,7 +9,7 @@ AndroidStandard是一个方便在Android端开发者，针对Android项目进行
 
 #### 1、安装 Node.js，如果已经安装，可直接第2步：
 
-Node.js中允许使用 JavaScript 开发服务端以及命令行程序，我们可以去官网https://nodejs.org下载最新版本的安装程序，然后一步一步进行安装就可以了。
+Node.js中允许使用 JavaScript 开发服务端以及命令行程序，我们可以去官网 https://nodejs.org 下载最新版本的安装程序，然后一步一步进行安装就可以了。
 
 #### 2、down下项目后，在当前目录下执行以下命令：
 
